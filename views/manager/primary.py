@@ -21,8 +21,8 @@ def user_list():
     if form.name.data:
         query = query.filter(f'%{form.name.data}%')
 
-    pagination = query.paginate(form.page.data, form.limit.data, error_out=False)
+    paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 
-    data = paginate_info(pagination, items=[item.serialization() for item in pagination.items])
+    data = paginate_info(paginate, items=[item.serialization() for item in paginate.items])
 
     return result_format(data=data)
