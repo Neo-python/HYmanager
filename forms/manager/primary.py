@@ -24,3 +24,7 @@ class FactoryOrderListForm(BaseForm, ListPage):
         Optional(),
         NumberRange(min=0, max=1, message=VM.say('system_number', 0, 1))
     ])
+
+
+class OrderEntrustForm(BaseForm):
+    """订单指派/委托给驾驶员"""
