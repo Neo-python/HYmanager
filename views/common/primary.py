@@ -8,11 +8,6 @@ from plugins.HYplugins.common.authorization import login, auth
 from plugins.HYplugins.error import ViewException
 
 
-@api.route('/user/list/')
-def user_list():
-    """用户列表"""
-
-
 @api.route('/upload_url/')
 @auth.login_required
 def upload_url():
