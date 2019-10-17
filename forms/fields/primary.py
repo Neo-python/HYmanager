@@ -1,6 +1,6 @@
 import wtforms
 from wtforms.validators import DataRequired, Length, NumberRange, InputRequired, Optional
-from models.HYModels.user import Factory, Driver
+from models.user import Factory, Driver
 from plugins.HYplugins.form.validators_message import ValidatorsMessage as VM
 
 
