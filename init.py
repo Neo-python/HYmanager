@@ -43,8 +43,11 @@ def register_blueprint(app):
     """注册蓝图"""
     from views.manager import api
     app.register_blueprint(api)
-    #
+
     from views.user import api
+    app.register_blueprint(api)
+
+    from views.common import api
     app.register_blueprint(api)
 
 

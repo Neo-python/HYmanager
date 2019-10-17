@@ -28,4 +28,7 @@ class UserGenreField:
 
     def validate_user_genre(self, *args):
         """验证用户类型"""
-        self.model = self.models[self.user_genre.data]
+        try:
+            self.model = self.models[self.user_genre.data]
+        except Exception as err:
+            raise wtforms.ValidationError(message='用户的类型输入错误')

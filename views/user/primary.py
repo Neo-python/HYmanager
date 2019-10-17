@@ -1,4 +1,5 @@
 import time
+import uuid
 from flask import g
 from init import sms, Redis
 from views.user import api
@@ -49,6 +50,9 @@ def activation():
 
     form.admin.open_id = form.open_id.data
     form.admin.name = form.name.data
+    form.admin.uuid = uuid.uuid1().hex
+    form.admin.sms_status = False
+    form.admin.update_create_time()
     form.admin.direct_update_()
 
     Redis.delete(form.redis_key)
