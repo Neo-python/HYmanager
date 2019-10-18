@@ -1,3 +1,4 @@
+import config
 from flask import g, request
 from views.manager import api
 from init import core_api
@@ -37,4 +38,8 @@ def order_entrust():
 
     OrderEntrust.static_commit_()
 
-    core_api.send_sms()
+    core_api.batch_sms(template_id=config.SMS_TEMPLATE_REGISTERED['order_entrust'],
+                       phone_list=[driver.phone for driver in form.driver_list],
+                       params=[form.order.order_uuid]
+                       )
+    return result_format()

@@ -27,10 +27,10 @@ class FactoryOrderListForm(BaseForm, ListPage):
     ])
 
 
-class OrderEntrustForm(BaseForm, OrderUuidField, UuidField):
+class OrderEntrustForm(BaseForm, OrderUuidField):
     """订单指派/委托给驾驶员"""
 
-    driver_list = JsonField(validators=DataRequired(message=VM.say('required', '驾驶员名单')))
+    driver_list = JsonField(validators=[DataRequired(message=VM.say('required', '驾驶员名单'))])
 
     def validate_order_uuid(self, *args):
         """订单编号"""
