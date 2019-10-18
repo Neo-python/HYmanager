@@ -29,4 +29,5 @@ def factory_order_list():
 def order_entrust():
     """订单指派/委托给驾驶员"""
 
-
+    form = forms.OrderEntrustForm().validate_()
+    
