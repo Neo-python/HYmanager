@@ -32,9 +32,9 @@ def order_entrust():
     """订单指派/委托给驾驶员"""
 
     form = forms.OrderEntrustForm().validate_()
-
+    user = g.user
     for driver in form.driver_list:
-        OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid).direct_add_()
+        OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid, managers_uuid=user.uuid).direct_add_()
 
     OrderEntrust.static_commit_()
 
