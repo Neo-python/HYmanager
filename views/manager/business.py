@@ -17,7 +17,7 @@ def factory_order_list():
     query = FactoryOrder.query
     if form.create_time_sort is not None:
         if form.create_time_sort.data == 0:
-            query = query.order_by(FactoryOrder.create_time.desc())
+            query = query.order_by(FactoryOrder.id.desc())
 
     paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 

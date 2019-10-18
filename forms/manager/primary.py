@@ -1,7 +1,7 @@
 from forms.fields.primary import *
 from models.manager import FactoryOrder, Driver
 from plugins.HYplugins.form import BaseForm, ListPage, IntegerField, NumberRange, JsonField
-from plugins.HYplugins.form.fields import PhoneField, OrderUuidField, UuidField
+from plugins.HYplugins.form.fields import PhoneField, OrderUuidField, UuidField, IdSortField
 
 
 class UserListForm(BaseForm, UserGenreField, ListPage):
@@ -18,13 +18,8 @@ class UserListForm(BaseForm, UserGenreField, ListPage):
     ])
 
 
-class FactoryOrderListForm(BaseForm, ListPage):
+class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
     """厂家订单列表"""
-
-    create_time_sort = IntegerField(validators=[
-        Optional(),
-        NumberRange(min=0, max=1, message=VM.say('system_number', 0, 1))
-    ])
 
 
 class OrderEntrustForm(BaseForm, OrderUuidField):
