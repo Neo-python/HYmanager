@@ -1,7 +1,8 @@
 from flask import g, request
 from views.manager import api
+from init import core_api
 from forms import manager as forms
-from models.manager import FactoryOrder
+from models.manager import FactoryOrder, OrderEntrust
 from plugins.HYplugins.common.authorization import login
 from plugins.HYplugins.common.ordinary import result_format, paginate_info
 
@@ -30,4 +31,10 @@ def order_entrust():
     """订单指派/委托给驾驶员"""
 
     form = forms.OrderEntrustForm().validate_()
-    
+
+    for driver in form.driver_list:
+        OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid).direct_add_()
+
+    OrderEntrust.static_commit_()
+
+    core_api.send_sms()
