@@ -11,19 +11,26 @@ from plugins.HYplugins.common.ordinary import result_format, paginate_info
 @api.route('/factory/order/list/')
 @login()
 def factory_order_list():
-    """厂家订单列表"""
+    """厂家订单列表
+    1. 过滤订单委托状态
+        0:未被委托的订单
+        1:已被委托的订单
+        2:委托后被接单的订单
+    """
 
     form = forms.FactoryOrderListForm(request.args).validate_()
 
     query = FactoryOrder.query
 
     if form.entrust_status.data is not None:
-        # 过滤订单委托状态
+        # 过滤订单委托状态.
         query = query.join(OrderEntrust)
         if form.entrust_status.data == 0:
-            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid)
-        else:
             query = query.filter(FactoryOrder.order_uuid != OrderEntrust.order_uuid)
+        elif form.entrust_status.data == 1:
+            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid)
+        elif form.entrust_status.data == 2:
+            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 1)
 
     if form.create_time_sort is not None:
         if form.create_time_sort.data == 0:

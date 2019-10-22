@@ -23,7 +23,7 @@ class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
 
     entrust_status = wtforms.IntegerField(validators=[
         Optional(),
-        NumberRange(min=0, max=1, message=VM.say('system_number', 0, 1))
+        NumberRange(min=0, max=2, message=VM.say('system_number', 0, 2))
     ],
         default=None
     )
