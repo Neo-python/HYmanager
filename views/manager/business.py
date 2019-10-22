@@ -14,7 +14,17 @@ def factory_order_list():
     """厂家订单列表"""
 
     form = forms.FactoryOrderListForm(request.args).validate_()
+
     query = FactoryOrder.query
+
+    if form.entrust_status.data is not None:
+        # 过滤订单委托状态
+        query = query.join(OrderEntrust)
+        if form.entrust_status.data == 0:
+            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid)
+        else:
+            query = query.filter(FactoryOrder.order_uuid != OrderEntrust.order_uuid)
+
     if form.create_time_sort is not None:
         if form.create_time_sort.data == 0:
             query = query.order_by(FactoryOrder.id.desc())

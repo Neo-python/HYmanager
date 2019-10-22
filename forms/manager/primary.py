@@ -21,6 +21,13 @@ class UserListForm(BaseForm, UserGenreField, ListPage):
 class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
     """厂家订单列表"""
 
+    entrust_status = wtforms.IntegerField(validators=[
+        Optional(),
+        NumberRange(min=0, max=1, message=VM.say('system_number', 0, 1))
+    ],
+        default=None
+    )
+
 
 class OrderEntrustForm(BaseForm, OrderUuidField):
     """订单指派/委托给驾驶员"""
