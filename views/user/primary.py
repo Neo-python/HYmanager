@@ -59,7 +59,7 @@ def activation():
     return result_format()
 
 
-@api.route('/admin/info/')
+@api.route('/info/')
 @login()
 def admin_info():
     """管理员信息查询"""
@@ -67,7 +67,7 @@ def admin_info():
     return result_format(data=user.serialization())
 
 
-@api.route('/admin/info/edit/', methods=['POST'])
+@api.route('/info/edit/', methods=['POST'])
 @login()
 def admin_info_edit():
     """管理员信息修改"""
