@@ -19,7 +19,6 @@ pool = redis.ConnectionPool(host=config.REDIS_HOST, port=config.REDIS_PORT, db=c
 Redis = redis.StrictRedis(connection_pool=pool)
 
 
-
 def register_blueprint(app):
     """注册蓝图"""
     from views.manager import api
