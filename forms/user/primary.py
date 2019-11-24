@@ -4,10 +4,14 @@ from init import Redis
 from forms.fields.primary import *
 from models.system import Admin
 from plugins.HYplugins.form import BaseForm
-from plugins.HYplugins.form.fields import PhoneField, CodeField, OpenIdField
+from plugins.HYplugins.form.fields import PhoneField, CodeField, WechatCodeField
 
 
-class ActivationForm(BaseForm, PhoneField, CodeField, OpenIdField, AdminNameField):
+class SignInForm(BaseForm, WechatCodeField):
+    """登录"""
+
+
+class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminNameField):
     """激活成为管理员"""
 
     def validate_code(self, *args):

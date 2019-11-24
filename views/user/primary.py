@@ -1,7 +1,7 @@
 import time
 import uuid
 from flask import g
-from init import Redis
+from init import Redis, core_api
 from views.user import api
 from plugins.HYplugins.common import result_format
 from plugins.HYplugins.common.authorization import login, auth
@@ -12,15 +12,15 @@ from forms import user as forms
 @api.route('/sign_in/', methods=['POST'])
 def sign_in():
     """登录"""
-    # open_id = wechat_api.get_open_id()
-    open_id = 'xxxneoxxx1'
+    form = forms.SignInForm().validate_()
+
+    user = Admin.query.filter_by(open_id=form.open_id).first()
     #
-    user = Admin.query.filter_by(open_id=open_id).first()
-    #
-    if user:  # 用户信息存在
+    if user:  # 用户信息存在,并且用户类型已经选择
+
         return result_format(data={'token': user.generate_token(), 'user_info': user.serialization()})
     else:
-        return result_format(error_code=4001, message='管理员不存在', data={'open_id': open_id})
+        return result_format(error_code=4001, message='客户未注册')
 
 
 @api.route('/refresh_token/')
@@ -48,7 +48,7 @@ def activation():
 
     form = forms.ActivationForm().validate_()
 
-    form.admin.open_id = form.open_id.data
+    form.admin.open_id = form.open_id
     form.admin.name = form.name.data
     form.admin.uuid = uuid.uuid1().hex
     form.admin.sms_status = False
