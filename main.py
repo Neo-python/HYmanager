@@ -18,7 +18,7 @@ def view_error(error):
 
 @app.errorhandler(500)
 def server_error(error):
-    """视图错误"""
+    """服务器错误"""
     return jsonify({"error_code": 5099, "message": str(error)})
 
 
