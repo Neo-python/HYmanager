@@ -1,5 +1,3 @@
-import wtforms
-from wtforms.validators import DataRequired, Length, NumberRange, InputRequired, Optional
 from init import Redis
 from forms.fields.primary import *
 from models.system import Admin

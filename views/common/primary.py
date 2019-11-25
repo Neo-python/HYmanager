@@ -5,7 +5,6 @@ from init import Redis, core_api
 from forms.common.primary import SMSCodeForm
 from plugins.HYplugins.common import ordinary
 from plugins.HYplugins.common.authorization import login, auth
-from plugins.HYplugins.error import ViewException
 
 
 @api.route('/upload_url/')

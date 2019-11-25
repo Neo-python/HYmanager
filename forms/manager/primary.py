@@ -1,7 +1,7 @@
 from forms.fields.primary import *
 from models.manager import FactoryOrder, Driver
-from plugins.HYplugins.form import BaseForm, ListPage, IntegerField, NumberRange, JsonField
-from plugins.HYplugins.form.fields import PhoneField, OrderUuidField, UuidField, IdSortField
+from plugins.HYplugins.form import BaseForm, ListPage, NumberRange, JsonField
+from plugins.HYplugins.form.fields import OrderUuidField, IdSortField
 
 
 class UserListForm(BaseForm, UserGenreField, ListPage):
