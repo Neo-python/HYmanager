@@ -20,7 +20,7 @@ def sign_in():
 
         return result_format(data={'token': user.generate_token(), 'user_info': user.serialization()})
     else:
-        return result_format(error_code=4001, message='客户未注册')
+        return result_format(error_code=4000, message='客户未注册')
 
 
 @api.route('/refresh_token/')
@@ -36,7 +36,7 @@ def refresh_token():
         user = Admin.query.filter_by(uuid=g.user.uuid).first_or_404()
         return result_format(data={'token': user.generate_token(), 'user_info': user.serialization()})
     else:
-        return result_format(error_code=4008, message='token刷新失败,有效期还长着呢.')
+        return result_format(error_code=5009, message='token刷新失败.')
 
 
 @api.route('/activation/', methods=['POST'])
