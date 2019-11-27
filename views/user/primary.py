@@ -75,3 +75,17 @@ def admin_info_edit():
     user = Admin.query.filter_by(uuid=g.user.uuid).first_or_404()
     user.set_attrs(form.data).direct_update_()
     return result_format()
+
+
+@api.route('/system/notice/', methods=['POST'])
+@login()
+def admin_system_notice():
+    """管理员接受短信通知设置"""
+    form = forms.AdminSystemNoticeForm().validate_()
+    user = Admin.query.filter_by(uuid=g.user.uuid).first_or_404()
+    if form.options == 1:
+        user.sms_status = True
+    else:
+        user.sms_status = False
+    user.direct_update_()
+    return result_format()
