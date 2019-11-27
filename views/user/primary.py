@@ -80,7 +80,7 @@ def admin_info_edit():
 @api.route('/system/notice/set/', methods=['POST'])
 @login()
 def admin_system_notice():
-    """管理员接受短信通知设置"""
+    """管理员短信通知设置"""
     form = forms.AdminSystemNoticeForm().validate_()
     user = Admin.query.filter_by(uuid=g.user.uuid).first_or_404()
     if form.options == 1:
