@@ -77,7 +77,7 @@ def admin_info_edit():
     return result_format()
 
 
-@api.route('/system/notice/', methods=['POST'])
+@api.route('/system/notice/set/', methods=['POST'])
 @login()
 def admin_system_notice():
     """管理员接受短信通知设置"""
