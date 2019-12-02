@@ -15,8 +15,8 @@ def sign_in():
     form = forms.SignInForm().validate_()
 
     user = Admin.query.filter_by(open_id=form.open_id).first()
-    #
-    if user:  # 用户信息存在,并且用户类型已经选择
+
+    if user:
 
         return result_format(data={'token': user.generate_token(), 'user_info': user.serialization()})
     else:
@@ -56,7 +56,7 @@ def activation():
     form.admin.direct_update_()
 
     Redis.delete(form.redis_key)
-    return result_format()
+    return result_format(data={'token': form.admin.generate_token(), 'user_info': form.admin.serialization()})
 
 
 @api.route('/info/')
