@@ -9,7 +9,7 @@ from plugins.HYplugins.common.ordinary import result_format, paginate_info
 
 
 @api.route('/factory/order/list/')
-@login()
+# @login()
 def factory_order_list():
     """厂家订单列表
     1. 过滤订单委托状态
@@ -24,18 +24,18 @@ def factory_order_list():
 
     if form.entrust_status.data is not None:
         # 过滤订单委托状态.
-        query = query.join(OrderEntrust)
+        query = query.join(OrderEntrust, isouter=True)
         if form.entrust_status.data == 0:
-            query = query.filter(FactoryOrder.order_uuid != OrderEntrust.order_uuid)
+            query = query.filter(OrderEntrust.order_uuid.is_(None))
         elif form.entrust_status.data == 1:
-            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid)
+            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 0)
         elif form.entrust_status.data == 2:
             query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 1)
 
     if form.create_time_sort is not None:
         if form.create_time_sort.data == 0:
             query = query.order_by(FactoryOrder.id.desc())
-    print(query)
+
     paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 
     data = paginate_info(paginate, items=[item.serialization() for item in paginate.items])
