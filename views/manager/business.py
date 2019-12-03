@@ -9,7 +9,7 @@ from plugins.HYplugins.common.ordinary import result_format, paginate_info
 
 
 @api.route('/factory/order/list/')
-# @login()
+@login()
 def factory_order_list():
     """厂家订单列表
     1. 过滤订单委托状态
@@ -60,3 +60,13 @@ def order_entrust():
                        params=[form.order.order_uuid]
                        )
     return result_format()
+
+
+@api.route('/order/info/')
+@login()
+def order_info():
+    """订单详情"""
+
+    form = forms.OrderInfoForm(request.args).validate_()
+
+    return result_format(data=form.order.serialization())

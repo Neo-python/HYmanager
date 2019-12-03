@@ -46,3 +46,14 @@ class OrderEntrustForm(BaseForm, OrderUuidField):
         """驾驶员编号"""
 
         self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data)).all()
+
+
+class OrderInfoForm(BaseForm, OrderUuidField):
+    """订单详情"""
+
+    def validate_order_uuid(self, *args):
+        """订单编号"""
+        self.order = FactoryOrder.query.filter_by(order_uuid=self.order_uuid.data).first()
+
+        if not self.order:
+            raise wtforms.ValidationError(message='订单处于无法查询状态.')
