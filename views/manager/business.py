@@ -38,7 +38,7 @@ def factory_order_list():
 
     paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 
-    data = paginate_info(paginate, items=[item.serialization(remove={"images", "id"}) for item in paginate.items])
+    data = paginate_info(paginate, items=[item.serialization(remove={"id"}) for item in paginate.items])
 
     return result_format(data=data)
 
