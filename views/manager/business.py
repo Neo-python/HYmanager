@@ -55,6 +55,7 @@ def order_entrust():
 
     OrderEntrust.static_commit_()
 
+    # 通知驾驶员接单短信
     core_api.batch_sms(template_id=config.SMS_TEMPLATE_REGISTERED['order_entrust'],
                        phone_list=[driver.phone for driver in form.driver_list],
                        params=[form.order.order_uuid]
