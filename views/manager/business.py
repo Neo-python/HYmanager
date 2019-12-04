@@ -22,15 +22,14 @@ def factory_order_list():
 
     query = FactoryOrder.query
 
-    if form.entrust_status.data is not None:
-        # 过滤订单委托状态.
-        query = query.join(OrderEntrust, isouter=True)
-        if form.entrust_status.data == 0:
-            query = query.filter(OrderEntrust.order_uuid.is_(None))
-        elif form.entrust_status.data == 1:
-            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 0)
-        elif form.entrust_status.data == 2:
-            query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 1)
+    # 过滤订单委托状态.
+    query = query.join(OrderEntrust, isouter=True)
+    if form.entrust_status.data == 0:
+        query = query.filter(OrderEntrust.order_uuid.is_(None))
+    elif form.entrust_status.data == 1:
+        query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 0)
+    elif form.entrust_status.data == 2:
+        query = query.filter(FactoryOrder.order_uuid == OrderEntrust.order_uuid, OrderEntrust.entrust_status == 1)
 
     if form.create_time_sort is not None:
         if form.create_time_sort.data == 0:
@@ -70,4 +69,4 @@ def order_info():
 
     form = forms.OrderInfoForm(request.args).validate_()
 
-    return result_format(data=form.order.serialization())
+    return result_format(data=form.order.serialization(remove={"id"}))

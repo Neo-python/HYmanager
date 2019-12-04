@@ -26,7 +26,7 @@ class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
         Optional(),
         NumberRange(min=0, max=2, message=VM.say('system_number', 0, 2))
     ],
-        default=None
+        default=0
     )
 
 
