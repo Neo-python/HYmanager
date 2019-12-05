@@ -3,7 +3,7 @@ from forms.fields.primary import *
 from wtforms.fields import IntegerField
 from wtforms.validators import NumberRange
 from models.system import Admin
-from plugins.HYplugins.form import BaseForm
+from plugins.HYplugins.form import BaseForm, InputRequired
 from plugins.HYplugins.form.fields import PhoneField, CodeField, WechatCodeField
 
 
@@ -39,6 +39,6 @@ class AdminSystemNoticeForm(BaseForm):
     """管理员接受短信通知设置"""
 
     options = IntegerField(validators=[
-        DataRequired(VM.say('required', '通知参数必须填写')),
+        InputRequired(VM.say('required', '通知参数必须填写')),
         NumberRange(min=0, max=1, message=VM.say('system_number', 0, 1))
     ])
