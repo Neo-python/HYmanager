@@ -1,6 +1,6 @@
 import time
 import uuid
-from flask import g
+from flask import g, request
 from init import Redis
 from views.user import api
 from plugins.HYplugins.common import result_format
