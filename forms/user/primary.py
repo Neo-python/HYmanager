@@ -17,9 +17,9 @@ class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminName
     def validate_code(self, *args):
         """验证手机验证码"""
         phone = self.phone.data
+        self.redis_key = f'validate_phone_activation_{phone}'
         if phone == '13000000000':
             return True
-        self.redis_key = f'validate_phone_activation_{phone}'
         if self.code.data == Redis.get(self.redis_key):
             return True
         else:
