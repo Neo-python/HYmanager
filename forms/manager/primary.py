@@ -56,7 +56,6 @@ class OrderEntrustForm(BaseForm, OrderUuidField):
         self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data)).all()
 
 
-
 class OrderInfoForm(BaseForm, OrderUuidField):
     """订单详情"""
 
