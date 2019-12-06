@@ -1,11 +1,11 @@
 import time
 import uuid
-from flask import g, request
+from flask import g
 from init import Redis
+from views import Admin
 from views.user import api
 from plugins.HYplugins.common import result_format
 from plugins.HYplugins.common.authorization import login, auth
-from models.system import Admin
 from forms import user as forms
 
 

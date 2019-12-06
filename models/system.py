@@ -1,4 +1,4 @@
-from .HYModels import system
+from models.HYModels import system
 
 
 class Admin(system.AdminBase):

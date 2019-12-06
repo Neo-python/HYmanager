@@ -1,5 +1,5 @@
-from .HYModels import user
-from .HYModels import business
+from models.HYModels import user
+from models.HYModels import business
 
 
 class Factory(user.FactoryBase):

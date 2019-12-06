@@ -1,4 +1,4 @@
-from .HYModels import common
+from models.HYModels import common
 
 
 class Images(common.ImagesBase):
