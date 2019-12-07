@@ -54,7 +54,7 @@ def order_entrust():
     form = forms.OrderEntrustForm().validate_()
     user = g.user
 
-    entrusts = OrderEntrust.query.filter(order_uuid=form.order.order_uuid).all()
+    entrusts = OrderEntrust.query.filter_by(order_uuid=form.order.order_uuid).all()
     entrusts_driver_list = [item.driver_uuid for item in entrusts]  # 已被委托的驾驶员列表
 
     for driver in form.driver_list:
