@@ -54,6 +54,10 @@ def order_entrust():
     form = forms.OrderEntrustForm().validate_()
     user = g.user
 
+    # 无新指派的订单情况下,直接返回.
+    if not form.driver_list:
+        return result_format()
+
     for driver in form.driver_list:
         OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid, managers_uuid=user.uuid).direct_add_()
 
