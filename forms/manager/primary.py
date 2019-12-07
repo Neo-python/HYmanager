@@ -51,7 +51,11 @@ class OrderEntrustForm(BaseForm, OrderUuidField):
                                 message=f'订单已被"{entrust.driver.name},{entrust.driver.phone}"接走,请先与该驾驶员取得联系')
 
     def validate_driver_list(self, *args):
-        """驾驶员编号"""
+        """驾驶员编号
+        子查询负责查询已委托驾驶员名单
+        :param args:
+        :return:
+        """
         subquery = OrderEntrust.query.with_entities(OrderEntrust.driver_uuid).filter_by(
             order_uuid=self.order_uuid.data).subquery()
         self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data),
