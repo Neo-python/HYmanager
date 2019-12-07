@@ -52,8 +52,10 @@ class OrderEntrustForm(BaseForm, OrderUuidField):
 
     def validate_driver_list(self, *args):
         """驾驶员编号"""
-
-        self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data)).all()
+        subquery = OrderEntrust.query.with_entities(OrderEntrust.driver_uuid).filter_by(
+            order_uuid=self.order_uuid.data).subquery()
+        self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data),
+                                               Driver.uuid.notin_(subquery)).all()
 
 
 class OrderInfoForm(BaseForm, OrderUuidField):
