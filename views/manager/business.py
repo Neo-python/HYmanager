@@ -54,13 +54,8 @@ def order_entrust():
     form = forms.OrderEntrustForm().validate_()
     user = g.user
 
-    entrusts = OrderEntrust.query.filter_by(order_uuid=form.order.order_uuid).all()
-    entrusts_driver_list = [item.driver_uuid for item in entrusts]  # 已被委托的驾驶员列表
-
     for driver in form.driver_list:
-        if driver not in entrusts_driver_list:  # 剔除已经被委托的驾驶员,避免重复委托
-            OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid,
-                         managers_uuid=user.uuid).direct_add_()
+        OrderEntrust(order_uuid=form.order.order_uuid, driver_uuid=driver.uuid, managers_uuid=user.uuid).direct_add_()
 
     OrderEntrust.static_commit_()
 
