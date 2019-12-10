@@ -20,6 +20,7 @@ pool = redis.ConnectionPool(host=config.REDIS_HOST, port=config.REDIS_PORT, db=c
 Redis = redis.StrictRedis(connection_pool=pool)
 serializer = Serializer(secret_key=config.SECRET_KEY, expires_in=60 * 60 * 24 * 30)
 
+
 def register_blueprint(app):
     """注册蓝图"""
     from views.manager import api
