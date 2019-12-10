@@ -1,4 +1,4 @@
-from init import Redis
+from plugins import Redis
 from forms.fields.primary import *
 from wtforms.fields import IntegerField
 from wtforms.validators import NumberRange
