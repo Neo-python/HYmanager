@@ -1,7 +1,41 @@
 import wtforms
 from wtforms.validators import DataRequired, Length
-from models.manager import Factory, Driver
+from models import Factory, Driver
 from plugins.HYplugins.form.validators_message import ValidatorsMessage as VM
+
+
+class DriverUUidField:
+    """驾驶员编号"""
+
+    driver_uuid = wtforms.StringField(validators=[
+        DataRequired(message=VM.say('required', '驾驶员唯一编号')),
+        Length(min=39, max=39, message=VM.say('length_unite', '驾驶员唯一编号', 39))
+    ]
+    )
+
+    def validate_driver_uuid(self, *args):
+        """驾驶员唯一编号"""
+        self.driver = Driver.query.filter_by(uuid=self.driver_uuid.data).first()
+
+        if not self.driver:
+            raise wtforms.ValidationError(message='驾驶员编号错误')
+
+
+class FactoryUUidField:
+    """厂家编号"""
+
+    factory_uuid = wtforms.StringField(validators=[
+        DataRequired(message=VM.say('required', '厂家唯一编号')),
+        Length(min=39, max=39, message=VM.say('length_unite', '厂家唯一编号', 39))
+    ]
+    )
+
+    def validate_factory_uuid(self, *args):
+        """厂家编号"""
+        self.factory = Factory.query.filter_by(uuid=self.factory_uuid.data).first()
+
+        if not self.factory:
+            raise wtforms.ValidationError(message='厂家编号错误')
 
 
 class AdminNameField:

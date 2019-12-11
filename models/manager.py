@@ -12,7 +12,3 @@ class Driver(user.DriverBase):
 
 class FactoryOrder(business.OrderBase):
     """厂家订单"""
-
-
-# class OrderEntrust(business.OrderEntrustBase):
-#     """订单委托"""

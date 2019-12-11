@@ -10,29 +10,54 @@ class DriverListFrom(BaseForm, ListPage):
     """驾驶员列表"""
 
 
-class UserListForm(BaseForm, UserGenreField, ListPage):
-    """用户列表"""
+class DriverInfoForm(BaseForm, DriverUUidField):
+    """驾驶员详情"""
 
-    phone = wtforms.StringField(validators=[
-        Optional(),
-        Length(max=11, message=VM.say('length', '手机号', 1, 11))
-    ])
 
-    name = wtforms.StringField(validators=[
-        Optional(),
-        Length(max=10, message=VM.say('length', '名称', 1, 10))
-    ])
+class FactoryListFrom(BaseForm, ListPage):
+    """厂家列表"""
+
+
+class FactoryInfoForm(BaseForm, FactoryUUidField):
+    """厂家详情"""
+
+
+# class UserListForm(BaseForm, UserGenreField, ListPage):
+#     """用户列表"""
+#
+#     phone = wtforms.StringField(validators=[
+#         Optional(),
+#         Length(max=11, message=VM.say('length', '手机号', 1, 11))
+#     ])
+#
+#     name = wtforms.StringField(validators=[
+#         Optional(),
+#         Length(max=10, message=VM.say('length', '名称', 1, 10))
+#     ])
 
 
 class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
     """厂家订单列表"""
 
-    entrust_status = wtforms.IntegerField(validators=[
+    schedule = wtforms.IntegerField(validators=[
         Optional(),
         NumberRange(min=0, max=2, message=VM.say('system_number', 0, 2))
     ],
-        default=0
+        default=None
     )
+
+    factory_uuid = wtforms.StringField(validators=[
+        Optional(),
+        Length(min=39, max=39, message=VM.say('length_unite', '厂家唯一编号', 39))
+    ]
+    )
+
+    def validate_factory_uuid(self, *args):
+        """厂家编号"""
+        self.factory = Factory.query.filter_by(uuid=self.factory_uuid.data).first()
+
+        if not self.factory:
+            raise wtforms.ValidationError(message='厂家编号错误')
 
 
 class OrderEntrustForm(BaseForm, OrderUuidField):
