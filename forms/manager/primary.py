@@ -60,39 +60,8 @@ class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
             raise wtforms.ValidationError(message='厂家编号错误')
 
 
-class OrderEntrustForm(BaseForm, OrderUuidField):
-    """订单指派/委托给驾驶员"""
-
-    # driver_list = JsonField(validators=[DataRequired(message=VM.say('required', '驾驶员名单'))])
-    #
-    # def validate_order_uuid(self, *args):
-    #     """订单编号
-    #     检查订单编号时候存在
-    #     检查订单是否已被接单
-    #     """
-    #     self.order = FactoryOrder.query.filter_by(order_uuid=self.order_uuid.data).first()
-    #
-    #     if not self.order:
-    #         raise wtforms.ValidationError(message='订单处于无法查询状态.')
-    #     entrust = OrderEntrust.query.filter_by(order_uuid=self.order.order_uuid, entrust_status=1).first()
-    #     if entrust:
-    #         raise ViewException(error_code=5110,
-    #                             message=f'订单已被"{entrust.driver.name},{entrust.driver.phone}"接走,请先与该驾驶员取得联系')
-    #
-    # def validate_driver_list(self, *args):
-    #     """驾驶员编号
-    #     子查询负责查询已委托驾驶员名单
-    #     :param args:
-    #     :return:
-    #     """
-    #     subquery = OrderEntrust.query.with_entities(OrderEntrust.driver_uuid).filter_by(
-    #         order_uuid=self.order_uuid.data).subquery()
-    #     self.driver_list = Driver.query.filter(Driver.uuid.in_(self.driver_list.data),
-    #                                            Driver.uuid.notin_(subquery)).all()
-
-
-class OrderInfoForm(BaseForm, OrderUuidField):
-    """订单详情"""
+class FactoryOrderInfoForm(BaseForm, OrderUuidField):
+    """厂家订单详情"""
 
     def validate_order_uuid(self, *args):
         """订单编号"""

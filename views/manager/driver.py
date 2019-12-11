@@ -30,3 +30,21 @@ def driver_info():
     form = forms.DriverInfoForm(request.args).validate_()
 
     return result_format(data=form.driver.serialization())
+
+
+@api.route('/driver/review/pass/')
+@login()
+def driver_review_pass():
+    """同意驾驶员申请"""
+
+
+@api.route('/driver/review/reject/')
+@login()
+def driver_review_prevent():
+    """不同意驾驶员申请"""
+
+
+@api.route('/driver/review/ban/')
+@login()
+def driver_review_ban():
+    """封禁驾驶员"""

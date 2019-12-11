@@ -50,3 +50,13 @@ def factory_order_list():
     data = paginate_info(paginate, items=[item.serialization() for item in paginate.items])
 
     return result_format(data=data)
+
+
+@api.route('/factory/order/info/')
+@login()
+def factory_order_info():
+    """订单详情"""
+
+    form = forms.FactoryOrderInfoForm(request.args).validate_()
+
+    return result_format(data=form.order.factory_serialization())
