@@ -6,6 +6,10 @@ from plugins.HYplugins.form.fields import OrderUuidField, IdSortField
 from plugins.HYplugins.error import ViewException
 
 
+class DriverListFrom(BaseForm, ListPage):
+    """驾驶员列表"""
+
+
 class UserListForm(BaseForm, UserGenreField, ListPage):
     """用户列表"""
 
