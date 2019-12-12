@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, g
 from views.manager import api
 from forms import manager as forms
 from models import Driver
@@ -36,6 +36,11 @@ def driver_info():
 @login()
 def driver_review_pass():
     """同意驾驶员申请"""
+
+    form = forms.DriverReview(request.args).validate_()
+    user = g.user
+    form.driver.verify = 1
+    form.driver.remark = f'由"{user.name}"通过认证'
 
 
 @api.route('/driver/review/reject/')

@@ -14,6 +14,10 @@ class DriverInfoForm(BaseForm, DriverUUidField):
     """驾驶员详情"""
 
 
+class DriverReview(BaseForm, DriverUUidField):
+    """驾驶员审核"""
+
+
 class FactoryListFrom(BaseForm, ListPage):
     """厂家列表"""
 
