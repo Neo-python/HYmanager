@@ -2,7 +2,7 @@ import config
 from flask import request, g
 from views.manager import api
 from forms import manager as forms
-from models import Driver
+from models import Driver, DriverSystemMessage
 from plugins import core_api
 from plugins.HYplugins.common.authorization import login
 from plugins.HYplugins.common.ordinary import paginate_info, result_format
@@ -42,7 +42,7 @@ def driver_review_pass():
     form = forms.DriverReview(request.args).validate_()
     user = g.user
     form.driver.verify = 1
-    form.driver.remark = f'由"{user.name}"通过认证'
+    DriverSystemMessage()
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
     return result_format()
 
