@@ -1,8 +1,8 @@
 import config
-from flask import request, g
+from flask import request
 from views.manager import api
 from forms import manager as forms
-from models import Driver, DriverSystemMessage
+from models import Driver
 from plugins import core_api
 from plugins.HYplugins.common.authorization import login
 from plugins.HYplugins.common.ordinary import paginate_info, result_format
@@ -43,6 +43,7 @@ def driver_review_pass():
     form.driver.verify = 1
     form.driver.direct_update_()
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
+    core_api.send_sms(phone=form.driver.phone, code="通过", template_id=config.SMS_TEMPLATE_REGISTERED['review'])
     return result_format()
 
 
@@ -53,6 +54,7 @@ def driver_review_prevent():
     form = forms.DriverReview(request.args).validate_()
     form.driver.verify = -1
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
+    core_api.send_sms(phone=form.driver.phone, code="失败", template_id=config.SMS_TEMPLATE_REGISTERED['review'])
     return result_format()
 
 
