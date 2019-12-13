@@ -1,7 +1,7 @@
 from wtforms.validators import Optional
 from forms.fields.primary import *
-from models.manager import FactoryOrder, Driver
-from plugins.HYplugins.form import BaseForm, ListPage, NumberRange, JsonField
+from models.manager import FactoryOrder
+from plugins.HYplugins.form import BaseForm, ListPage, NumberRange
 from plugins.HYplugins.form.fields import OrderUuidField, IdSortField
 from plugins.HYplugins.error import ViewException
 
@@ -14,6 +14,10 @@ class DriverInfoForm(BaseForm, DriverUUidField):
     """驾驶员详情"""
 
 
+class DriverOrderListForm(BaseForm, ListPage, DriverUUidField):
+    """驾驶员订单列表"""
+
+
 class DriverReview(BaseForm, DriverUUidField):
     """驾驶员审核"""
 
@@ -24,20 +28,6 @@ class FactoryListFrom(BaseForm, ListPage):
 
 class FactoryInfoForm(BaseForm, FactoryUUidField):
     """厂家详情"""
-
-
-# class UserListForm(BaseForm, UserGenreField, ListPage):
-#     """用户列表"""
-#
-#     phone = wtforms.StringField(validators=[
-#         Optional(),
-#         Length(max=11, message=VM.say('length', '手机号', 1, 11))
-#     ])
-#
-#     name = wtforms.StringField(validators=[
-#         Optional(),
-#         Length(max=10, message=VM.say('length', '名称', 1, 10))
-#     ])
 
 
 class FactoryOrderListForm(BaseForm, ListPage, IdSortField):

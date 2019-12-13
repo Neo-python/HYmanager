@@ -2,7 +2,7 @@ import config
 from flask import request
 from views.manager import api
 from forms import manager as forms
-from models import Driver
+from models import Driver, DriverOrder
 from plugins import core_api
 from plugins.HYplugins.common.authorization import login
 from plugins.HYplugins.common.ordinary import paginate_info, result_format
@@ -66,3 +66,18 @@ def driver_review_ban():
     form.driver.verify = -2
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
     return result_format()
+
+
+@api.route('/driver/order/list/')
+@login()
+def driver_order_list():
+    """驾驶员订单列表"""
+    form = forms.DriverOrderListForm(request.args).validate_()
+
+    query = DriverOrder.query.filter_by(driver_uuid=form.driver.uuid)
+
+    paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
+
+    data = paginate_info(paginate, items=[item.customize_serialization() for item in paginate.items])
+
+    return result_format(data=data)
