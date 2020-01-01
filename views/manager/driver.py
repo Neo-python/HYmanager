@@ -43,7 +43,8 @@ def driver_review_pass():
     form.driver.verify = 1
     form.driver.direct_update_()
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
-    core_api.send_sms(phone=form.driver.phone, code="申请通过", template_id=config.SMS_TEMPLATE_REGISTERED['review'])
+    core_api.batch_sms(phone_list=[form.driver.phone], params=["申请通过"],
+                       template_id=config.SMS_TEMPLATE_REGISTERED['review'])
     return result_format()
 
 
@@ -54,7 +55,8 @@ def driver_review_prevent():
     form = forms.DriverReview(request.args).validate_()
     form.driver.verify = -1
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
-    core_api.send_sms(phone=form.driver.phone, code="失败", template_id=config.SMS_TEMPLATE_REGISTERED['review'])
+    core_api.batch_sms(phone_list=[form.driver.phone], params=["申请失败"],
+                       template_id=config.SMS_TEMPLATE_REGISTERED['review'])
     return result_format()
 
 
