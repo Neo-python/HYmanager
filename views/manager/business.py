@@ -13,6 +13,6 @@ from plugins.HYplugins.common.ordinary import result_format, paginate_info
 def order_info():
     """订单详情"""
 
-    form = forms.OrderInfoForm(request.args).validate_()
+    form = forms.FactoryOrderInfoForm(request.args).validate_()
 
     return result_format(data=form.order.serialization(remove={"id"}))
