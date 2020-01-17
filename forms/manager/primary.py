@@ -9,9 +9,9 @@ from plugins.HYplugins.error import ViewException
 
 class DriverListFrom(BaseForm, ListPage):
     """驾驶员列表"""
-    verify_status = wtforms.IntegerField(validators=[
-        InputRequired(message=VM.say('required', '审核状态'))
-    ])
+    verify_status = wtforms.IntegerField(
+        default=99
+    )
 
 
 class DriverInfoForm(BaseForm, DriverUUidField):
