@@ -9,7 +9,7 @@ from plugins.HYplugins.common.ordinary import paginate_info, result_format
 
 
 @api.route('/driver/list/')
-# @login()
+@login()
 def driver_list():
     """驾驶员列表"""
 
