@@ -3,11 +3,15 @@ from forms.fields.primary import *
 from models.manager import FactoryOrder
 from plugins.HYplugins.form import BaseForm, ListPage, NumberRange
 from plugins.HYplugins.form.fields import OrderUuidField, IdSortField
+from plugins.HYplugins.form.primary import InputRequired
 from plugins.HYplugins.error import ViewException
 
 
 class DriverListFrom(BaseForm, ListPage):
     """驾驶员列表"""
+    verify_status = wtforms.IntegerField(validators=[
+        InputRequired(message=VM.say('required', '审核状态'))
+    ])
 
 
 class DriverInfoForm(BaseForm, DriverUUidField):

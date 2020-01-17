@@ -17,6 +17,9 @@ def driver_list():
 
     query = Driver.query
 
+    if form.verify_status.data != 99:
+        query = query.filter_by(verify=form.verify_status.data)
+
     paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 
     data = paginate_info(paginate, items=[item.serialization() for item in paginate.items])
