@@ -57,6 +57,7 @@ def driver_review_prevent():
     """不同意驾驶员申请"""
     form = forms.DriverReview(request.args).validate_()
     form.driver.verify = -1
+    form.driver.direct_update_()
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
     core_api.batch_sms(phone_list=[form.driver.phone], params=["申请失败"],
                        template_id=config.SMS_TEMPLATE_REGISTERED['review'])
@@ -70,6 +71,7 @@ def driver_review_ban():
     form = forms.DriverReview(request.args).validate_()
     form.driver.verify = -2
     core_api.clear_token(uuid=form.driver.uuid, port=config.driver_port)
+    form.driver.direct_update_()
     return result_format()
 
 
