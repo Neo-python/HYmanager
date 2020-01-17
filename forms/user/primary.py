@@ -16,6 +16,11 @@ class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminName
 
     def validate_code(self, *args):
         """验证手机验证码"""
+
+        # 审核逻辑
+        if self.wechat_verify() is True:
+            return True
+
         phone = self.phone.data
         self.redis_key = f'validate_phone_activation_{phone}'
         if self.code.data == Redis.get(self.redis_key):
@@ -25,10 +30,21 @@ class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminName
 
     def validate_phone(self, *args):
         """验证手机号"""
+
+        # 审核逻辑
+        if self.wechat_verify() is True:
+            return True
+
         self.admin = Admin.query.filter_by(phone=self.phone.data, open_id=None).first()
 
         if not self.admin:
             raise wtforms.ValidationError(message='您还未成为海嘉粤管理员,无法激活管理员身份.')
+
+    def wechat_verify(self):
+        if self.phone.data == '13000000000':
+            self.admin = Admin.query.filter_by(phone=self.phone.data).first()
+            self.redis_key = f'validate_phone_activation_{self.phone.data}'
+            return True
 
 
 class AdminInfoEditForm(BaseForm, AdminNameField):
