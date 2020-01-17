@@ -46,7 +46,7 @@ class FactoryOrderListForm(BaseForm, ListPage, IdSortField):
 
     factory_uuid = wtforms.StringField(validators=[
         Optional(),
-        Length(min=39, max=39, message=VM.say('length_unite', '厂家唯一编号', 39))
+        Length(max=40, message=VM.say('system_number', '厂家唯一编号', 30, 40))
     ]
     )
 

@@ -9,7 +9,7 @@ class DriverUUidField:
 
     driver_uuid = wtforms.StringField(validators=[
         DataRequired(message=VM.say('required', '驾驶员唯一编号')),
-        Length(min=39, max=39, message=VM.say('length_unite', '驾驶员唯一编号', 39))
+        Length(max=40, message=VM.say('system_number', '驾驶员唯一编号', 30, 40))
     ]
     )
 
@@ -26,7 +26,7 @@ class FactoryUUidField:
 
     factory_uuid = wtforms.StringField(validators=[
         DataRequired(message=VM.say('required', '厂家唯一编号')),
-        Length(min=39, max=39, message=VM.say('length_unite', '厂家唯一编号', 39))
+        Length(max=40, message=VM.say('system_number', '厂家唯一编号', 30, 40))
     ]
     )
 
