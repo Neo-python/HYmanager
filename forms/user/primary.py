@@ -4,11 +4,15 @@ from wtforms.fields import IntegerField
 from wtforms.validators import NumberRange
 from models.system import Admin
 from plugins.HYplugins.form import BaseForm, InputRequired
-from plugins.HYplugins.form.fields import PhoneField, CodeField, WechatCodeField
+from plugins.HYplugins.form.fields import PhoneField, CodeField, WechatCodeField, VisitorsParameterField
 
 
 class SignInForm(BaseForm, WechatCodeField):
     """登录"""
+
+
+class VisitorsForm(BaseForm, VisitorsParameterField):
+    """访客审核验证"""
 
 
 class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminNameField):

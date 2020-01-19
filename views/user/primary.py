@@ -24,9 +24,10 @@ def sign_in():
         return result_format(error_code=5011, message='客户未注册')
 
 
-@api.route('/visitors/', methods=['GET'])
+@api.route('/visitors/', methods=['POST'])
 def visitors():
     """访客模式"""
+    forms.VisitorsForm().validate_()
 
     user = Admin.query.filter_by(create_time="2028-01-01 12:00:00").first()
     if user:
