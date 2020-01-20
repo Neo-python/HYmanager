@@ -14,6 +14,8 @@ class SignInForm(BaseForm, WechatCodeField):
 class VisitorsForm(BaseForm, VisitorsParameterField):
     """访客审核验证"""
 
+    server_name = '管理员端'
+
 
 class ActivationForm(BaseForm, PhoneField, CodeField, WechatCodeField, AdminNameField):
     """激活成为管理员"""
