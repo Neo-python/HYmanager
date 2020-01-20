@@ -27,13 +27,14 @@ def sign_in():
 @api.route('/visitors/', methods=['POST'])
 def visitors():
     """访客模式"""
+
     forms.VisitorsForm().validate_()
 
     user = Admin.query.filter_by(create_time="2028-01-01 12:00:00").first()
     if user:
         return result_format(data={'token': user.generate_token(), 'user_info': user.serialization()})
     else:
-        return result_format(data={'token': '', 'user_info': ''})
+        return result_format(error_code=5011, message="接口目前无法使用")
 
 
 @api.route('/refresh_token/')
