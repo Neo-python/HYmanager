@@ -45,7 +45,7 @@ def factory_order_list():
     if form.schedule.data is not None:
         query = query.filter_by(schedule=form.schedule.data)
 
-    query.order_by(FactoryOrder.id.desc())
+    query.order_by(FactoryOrder.id)
 
     paginate = query.paginate(form.page.data, form.limit.data, error_out=False)
 
